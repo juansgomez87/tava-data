@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Extract acoustic features
+Extract acoustic features using egemaps (OpenSmile)
 
 Copyright 2025, J.S. Gómez-Cañón
 Licensed under GNU AFFERO GENERAL PUBLIC LICENSE

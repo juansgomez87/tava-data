@@ -11,7 +11,7 @@ Thank you to @bryant1410!
 It has been modified to account for "insufficient variation", where alpha is undetermined
 and for numerical variations.
 
-Copyright 2025, J.S. Gómez-Cañón
+Copyright 2022, J.S. Gómez-Cañón
 Licensed under GNU AFFERO GENERAL PUBLIC LICENSE
 """
 

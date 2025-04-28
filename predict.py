@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Classification using logistic regression
-Regression using LASSO 
+Regression using LASSO for TAVA dataset
 
 Copyright 2025, J.S. Gómez-Cañón
 Licensed under GNU AFFERO GENERAL PUBLIC LICENSE

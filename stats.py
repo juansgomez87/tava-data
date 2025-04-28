@@ -71,28 +71,28 @@ sum_df = sum_df.rename(columns={'arousal_mean': 'arousal',
 
 ###########################
 # 2) Reliability
-# print('-'*50)
-# for var in df.variant.unique():
-#     this_df = df[df.variant == var]
-#     print('*'*30)
-#     print(f'Variant {var} has {this_df.shape[0]} unique annotations!')
-#     df_pivot = this_df.pivot_table(index="raterID", columns="stimulusNumber", values=["valence", "arousal", "dominance"])
-#     for mod in ['arousal', 'valence', 'dominance']:
-#         # krippendorff
-#         alp = alpha(reliability_data=df_pivot[mod].values, level_of_measurement='interval')
-#         print(f'Krippendorff alpha for {mod}: {alp:.02f}')
+print('-'*50)
+for var in df.variant.unique():
+    this_df = df[df.variant == var]
+    print('*'*30)
+    print(f'Variant {var} has {this_df.shape[0]} unique annotations!')
+    df_pivot = this_df.pivot_table(index="raterID", columns="stimulusNumber", values=["valence", "arousal", "dominance"])
+    for mod in ['arousal', 'valence', 'dominance']:
+        # krippendorff
+        alp = alpha(reliability_data=df_pivot[mod].values, level_of_measurement='interval')
+        print(f'Krippendorff alpha for {mod}: {alp:.02f}')
 
-#         # icc
-#         df_clean = this_df[['stimulusNumber', 'raterID', mod]].dropna()
-#         model = ols(f'{mod} ~ C(stimulusNumber)', data=df_clean).fit()
-#         anova_table = sm.stats.anova_lm(model, typ=2)
-#         ms_between = anova_table['sum_sq']['C(stimulusNumber)'] / anova_table['df']['C(stimulusNumber)']
-#         ms_within = anova_table['sum_sq']['Residual'] / anova_table['df']['Residual']
-#         n_raters = df_clean.groupby('stimulusNumber')['raterID'].nunique().mean()
+        # icc
+        df_clean = this_df[['stimulusNumber', 'raterID', mod]].dropna()
+        model = ols(f'{mod} ~ C(stimulusNumber)', data=df_clean).fit()
+        anova_table = sm.stats.anova_lm(model, typ=2)
+        ms_between = anova_table['sum_sq']['C(stimulusNumber)'] / anova_table['df']['C(stimulusNumber)']
+        ms_within = anova_table['sum_sq']['Residual'] / anova_table['df']['Residual']
+        n_raters = df_clean.groupby('stimulusNumber')['raterID'].nunique().mean()
 
-#         # Compute ICC(1,1)
-#         icc = (ms_between - ms_within) / (ms_between + (n_raters - 1) * ms_within)
-#         print(f'Estimated ICC(1,1) for {mod} ratings: {icc:.2f}')
+        # Compute ICC(1,1)
+        icc = (ms_between - ms_within) / (ms_between + (n_raters - 1) * ms_within)
+        print(f'Estimated ICC(1,1) for {mod} ratings: {icc:.2f}')
 
 ###########################
 # 3) Stats
@@ -258,7 +258,7 @@ def plot_and_save_double_grouped_violinplots_with_stats(df, metrics, output_file
         # Delay setting xticklabels until ticks are defined
         ax.tick_params(axis='x', rotation=45)
 
-    plt.tight_layout(rect=[0, 0.05, 1, 1])  # <- add space below
+    plt.tight_layout(rect=[0, 0.05, 1, 1]) 
 
     if handles and labels:
         label_map = {
@@ -278,58 +278,6 @@ def plot_and_save_double_grouped_violinplots_with_stats(df, metrics, output_file
     plt.close()
 
 
-def plot_and_save_double_grouped_violinplots_with_stats_old(df, metrics, output_filename, variable):
-    fig, axes = plt.subplots(len(metrics), 1, figsize=(12, 1 * len(metrics)), sharex=True)
-
-    # Standardize categorical values to avoid formatting mismatches
-    df["sex"] = df["speakerSex"].str.strip().str.lower()
-    df["variant"] = df["variant"].str.strip().str.lower()
-
-    # Unique values in columns
-    sex_values = set(df["speakerSex"].unique())
-    affect_values = set(df["affectName"].unique())
-
-    for i, metric in enumerate(metrics):
-        ax = axes[i]
-
-        # Violin plot with correct `hue`
-        sns.violinplot(x="affectName", y=metric, hue=variable, data=df, ax=ax, 
-                       split=True, inner="box", legend=False)
-
-        # # Scatter plot to show individual points
-        # sns.stripplot(x="affectName", y=metric, hue=variable, data=df, ax=ax, 
-        #               dodge=True, jitter=True, alpha=0.5, size=3, marker="o", legend=False, palette="dark")
-
-        # ax.set_title(f"{metric} by Affect Name and {variable}")
-        # ax.set_xticks(range(len(ax.get_xticklabels())))
-        
-        ax.set_ylim(-1, 1)
-
-        # # Generate valid pairs for annotation
-        # if variable == 'Sex':
-        #     # Check if both "male" and "female" exist for each Affect Name
-        #     pairs = [(("male", affect), ("female", affect)) 
-        #                 for affect in affect_values 
-        #                 if {"male", "female"}.issubset(set(df[df["Affect Name"] == affect]["Sex"].unique()))]
-
-        # elif variable == "Variant":
-        #     # Check if both "speech" and "tegg" exist for each Affect Name
-        #     pairs = [(("speech", affect), ("tEGG", affect)) 
-        #                 for affect in affect_values 
-        #                 if {"speech", "tEGG"}.issubset(set(df[df["Affect Name"] == affect]["Variant"].unique()))]
-
-        # # Add statistical significance annotations
-        # if pairs:
-        #     pdb.set_trace()
-        #     annotator = Annotator(ax, pairs, data=df, x="Affect Name", y=metric, hue=variable)
-        #     annotator.configure(test="t-test_ind", text_format="star", loc="outside")
-        #     annotator.apply_and_annotate()
-    ax.set_xticklabels(ax.get_xticklabels(), rotation=45)
-    ax.legend(title=variable, loc="upper right")
-    plt.tight_layout()
-    plt.savefig(output_filename, format="pdf")  # Save as PDF
-    plt.close()  # Close the figure to free memory
-
 # Save violin plots with statistical significance and scatter points
 plot_and_save_double_grouped_violinplots_with_stats(df, metrics, "figs/02_sex_affect_name_violin_stats.pdf", "speakerSex")
 plot_and_save_double_grouped_violinplots_with_stats(df, metrics, "figs/02_variant_affect_name_violin.pdf", "variant")
@@ -344,7 +292,7 @@ corr_matrix = corr_df.corr()
 plt.figure(figsize=(8, 6))
 sns.heatmap(corr_matrix, annot=True, cmap="coolwarm", fmt=".2f", linewidths=0.5)
 plt.title("Correlation Heatmap: Valence, Arousal, and Dominance")
-plt.savefig("figs/03_correlation_heatmap.pdf", format="pdf")  # Save as PDF
+plt.savefig("figs/03_correlation_heatmap.pdf", format="pdf")
 plt.close()
 
 # distribution analysis
@@ -355,13 +303,13 @@ for i, metric in enumerate(["valence", "arousal", "dominance"]):
     axes[i].set_title(f"Distribution of {metric}")
 
 plt.tight_layout()
-plt.savefig("figs/04_distribution_analysis.pdf", format="pdf")  # Save as PDF
+plt.savefig("figs/04_distribution_analysis.pdf", format="pdf") 
 plt.close()
 
 # affect name and dimensions
 sns.pairplot(df, vars=["valence", "arousal", "dominance"], hue="affectName", palette="coolwarm")
 plt.suptitle("Affect Categories in Valence-Arousal-Dominance Space", y=1.02)
-plt.savefig("figs/05_affect_name_pairplot.pdf", format="pdf")  # Save as PDF
+plt.savefig("figs/05_affect_name_pairplot.pdf", format="pdf") 
 plt.close()
 
 
