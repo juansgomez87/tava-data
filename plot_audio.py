@@ -30,7 +30,7 @@ def plot_audio():
     D_egg = librosa.stft(y_egg, n_fft=2048)  # STFT of y
     S_db_egg = librosa.amplitude_to_db(np.abs(D_egg), ref=np.max)
 
-    fig, axs = plt.subplots(2, 2, figsize=(6.5, 4), constrained_layout=True, sharex='col')
+    fig, axs = plt.subplots(2, 2, figsize=(6.5, 3.5), constrained_layout=True, sharex='col')
     gs = gridspec.GridSpec(2, 3, width_ratios=[3, 3, 0.15], wspace=0.4, hspace=0.4)
 
     # Time axis
@@ -43,12 +43,13 @@ def plot_audio():
 
     axs[1, 0].plot(time_egg, y_egg, color='gray', linewidth=0.8)
     axs[1, 0].set_title('tEGG')
-    axs[1, 0].set_xlabel('Time (s)')
+    axs[1, 0].set_xlabel('Samples')
     axs[1, 0].set_ylabel('Amplitude')
 
     # Plot spectrograms
     img1 = librosa.display.specshow(S_db_aud, sr=sr, x_axis='time', y_axis='log', ax=axs[0, 1], cmap='magma')
     axs[0, 1].set_title('Audio Spectrogram')
+    axs[0, 1].set_xlabel("") 
 
     img2 = librosa.display.specshow(S_db_egg, sr=sr, x_axis='time', y_axis='log', ax=axs[1, 1], cmap='magma')
     axs[1, 1].set_title('tEGG Spectrogram')

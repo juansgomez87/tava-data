@@ -8,27 +8,35 @@ pip install -r requirements.txt
 ```
 
 ### Usage
-1. Extract acoustic features
+1. Extract acoustic features:
 ```
-python process_audio.py
+python process_audio.py -audio [speech/tEGG] 
 ```
-
 
 2. Run prediction script to obtain classification and regression metrics. 
 ```
-python classifier.py -clf [phase/playlist] -algo [egemaps/maest] -mean [y/n]
+python lld_predict.py 
+```
+
+3. Run statistics from dataset. 
+```
+python stats.py 
 ```
 
 
 ### Reference:
 ```
-@inproceedings{GómezCañón2025WASPAA,
+@inproceedings{GomezCanonn2025WASPAA,
 	title        = {{The Test of Auditory-Vocal Affect (TAVA) dataset}},
 	author       = {Gómez-Cañón, Juan S. and Noufi, Camille and Berger, Jonathan and Parker, Karen J. and Bowling, Daniel},
 	year         = 2025,
-	booktitle    = {2025 IEEE Workshop on Applications of Signal Processing to Audio and Acoustics (WASPAA)},
-	organization = {IEEE},
-    address      = {Lake Tahoe, USA}
+	booktitle    = {IEEE Workshop on Applications of Signal Processing to Audio and Acoustics},
+	month        = oct,
+	publisher    = {WASPAA},
+	pages        = {},
+	doi          = {},
+	url          = {},
+	address      = {Tahoe City, USA}
 }
 ```
 

@@ -1,5 +1,7 @@
 Noufi2023.pdf
 .venv
+predict.py
+.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

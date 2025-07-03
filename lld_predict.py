@@ -21,6 +21,7 @@ from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import label_binarize
 from sklearn.linear_model import LinearRegression, Lasso
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.model_selection import cross_val_predict, GridSearchCV
 from sklearn.decomposition import PCA
@@ -117,7 +118,7 @@ class TavaClassifier():
         
         # self.evaluate(y_true_all, y_pred_all, y_score_all)
         self.plot_stratified_splits()
-        self.plot_roc_auc(y_true_all, y_score_all)
+        self.plot_roc_auc(y_true_all, y_score_all, self.model.classes_)
         self.compare_with_chance(y_true_all, y_pred_all)
         self.feature_importance()
         
@@ -133,21 +134,27 @@ class TavaClassifier():
         if self.plot_flag:
             plt.show()
         
-    def plot_roc_auc(self, y_true, y_score):
+    def plot_roc_auc(self, y_true, y_score, class_names=None):
         y_bin = label_binarize(y_true, classes=np.unique(y_true))
         n_classes = y_bin.shape[1]
+        
+        # Use provided class names or default to string versions of class indices
+        if class_names is None:
+            class_names = [str(i) for i in range(n_classes)]
+
         plt.figure(figsize=(8, 6))
         
         for i in range(n_classes):
             fpr, tpr, _ = roc_curve(y_bin[:, i], y_score[:, i])
             roc_auc = auc(fpr, tpr)
-            plt.plot(fpr, tpr, label=f'Class {i} (AUC = {roc_auc:.2f})')
+            plt.plot(fpr, tpr, label=f'{class_names[i]} (AUC = {roc_auc:.2f})')
         
         plt.plot([0, 1], [0, 1], 'k--')
         plt.xlabel('False Positive Rate')
         plt.ylabel('True Positive Rate')
         plt.title('ROC Curve')
         plt.legend()
+        
         if self.plot_flag:
             plt.show()
         
@@ -158,7 +165,8 @@ class TavaClassifier():
         cm = np.round(cm, 1)
 
         fig, ax = plt.subplots(figsize=(3.5, 3.5))
-        disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=self.model.classes_)
+        disp = ConfusionMatrixDisplay(confusion_matrix=cm,
+                                      display_labels=[label[:4] for label in self.model.classes_])
         disp.plot(
             ax=ax,
             xticks_rotation=90,
@@ -172,7 +180,7 @@ class TavaClassifier():
         for i in range(len(self.model.classes_)):
             for j in range(len(self.model.classes_)):
                 text = disp.text_[i, j]
-                text.set_fontsize(4)
+                text.set_fontsize(6)
                 if i == j:
                     text.set_weight('bold')  # bold diagonal
                     # text.set_color('black') 
@@ -361,6 +369,7 @@ class TavaRegressor():
         for label, target in zip(['Valence', 'Arousal', 'Dominance'], [self.val, self.aro, self.dom]):
             print(f"→ Regressing {label}")
             model = Lasso(alpha=self.alpha, max_iter=2000)
+            # model = RandomForestRegressor(n_estimators=100)
             y_pred = cross_val_predict(model, self.X, target, cv=self.cv)
 
             metrics, chance, t_stat, p_value = self.evaluate_regression(target, y_pred)

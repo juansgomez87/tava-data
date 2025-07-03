@@ -18,11 +18,14 @@ import pdb
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
+# smile = opensmile.Smile(
+#     feature_set=opensmile.FeatureSet.eGeMAPSv02,
+#     feature_level=opensmile.FeatureLevel.Functionals,
+# )
 smile = opensmile.Smile(
     feature_set=opensmile.FeatureSet.eGeMAPSv02,
-    feature_level=opensmile.FeatureLevel.Functionals,
+    feature_level=opensmile.FeatureLevel.LowLevelDescriptors,
 )
-
 
 def process_egemaps(fn, out_fn):
     dir_path = os.path.dirname(out_fn)
@@ -34,7 +37,6 @@ def process_egemaps(fn, out_fn):
 
 
 if __name__ == '__main__':
-
     base_path = os.path.abspath('.')
     path_audio = os.path.join(base_path, 'audio', 'recordings')
     path_tegg = os.path.join(base_path, 'audio', 'tegg')
