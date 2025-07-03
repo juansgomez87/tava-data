@@ -1,5 +1,12 @@
 # TAVA dataset
 
+In this paper we present the TAVA, a novel dataset for advancing research in Speech Emotion Recognition (SER) by disentangling paralinguistic and linguistic information in affective speech signals. 
+The dataset includes 352 audio recordings of emotionally expressive English speech, each paired with a corresponding transformed electroglottographic (tEGG) version---a signal designed to preserve affective cues while systematically suppressing phonetic content. 
+In addition, we provide over 120,000 crowd-sourced ratings of valence, arousal, and dominance for both the original and transformed signals. 
+These ratings support fine-grained comparisons of affect perception across modalities. 
+Building on prior work showing that tEGG signals can effectively isolate vocal affect, this dataset offers a unique resource for evaluating sensitivity to vocal affect in clinical populations with language or communication difficulties, as well as in studies aimed at dissociating linguistic and affective processing in individuals without these impairments.
+By contributing a phoneme-reduced, affect-rich signal representation to the SER community, we aim to enable more robust modelling of vocal affect and broaden the applicability of SER systems to diverse user populations. 
+
 ### Installation 
 This repository was created using Python 3.11.10. Install the required dependencies:
 ```
@@ -30,7 +37,7 @@ python stats.py
 ```
 @inproceedings{GomezCanonn2025WASPAA,
 	title        = {{The Test of Auditory-Vocal Affect (TAVA) dataset}},
-	author       = {Gómez-Cañón, Juan S. and Noufi, Camille and Berger, Jonathan and Parker, Karen J. and Bowling, Daniel},
+	author       = {Gómez-Cañón, Juan Sebastián and Noufi, Camille and Berger, Jonathan and Parker, Karen J. and Bowling, Daniel},
 	year         = 2025,
 	booktitle    = {IEEE Workshop on Applications of Signal Processing to Audio and Acoustics},
 	month        = oct,
