@@ -1,4 +1,4 @@
-# TAVA dataset
+# The Test of Auditory-Vocal Affect (TAVA) dataset
 
 In this paper we present the TAVA, a novel dataset for advancing research in Speech Emotion Recognition (SER) by disentangling paralinguistic and linguistic information in affective speech signals. 
 The dataset includes 352 audio recordings of emotionally expressive English speech, each paired with a corresponding transformed electroglottographic (tEGG) version---a signal designed to preserve affective cues while systematically suppressing phonetic content. 
