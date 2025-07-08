@@ -16,6 +16,7 @@ pip install -r requirements.txt
 
 ### Usage
 The speech, EGG and tEGG audio files are in `audio` directory. The egemaps features are in the `feats` directory.
+The ratings are saved in the `annotations` directory, where `AllData.csv` contains each rating and `SummaryData.csv` contains the mean and standard deviation per stimuli. 
 
 1. Extract acoustic features:
 ```
