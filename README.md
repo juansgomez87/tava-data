@@ -15,7 +15,7 @@ pip install -r requirements.txt
 ```
 
 ### Usage
-The speech and tEGG audio files are in `audio` directory. The egemaps features are in the `feats` directory.
+The speech, EGG and tEGG audio files are in `audio` directory. The egemaps features are in the `feats` directory.
 
 1. Extract acoustic features:
 ```
