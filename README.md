@@ -36,7 +36,7 @@ python stats.py
 
 ### Reference:
 ```
-@inproceedings{GomezCanonn2025WASPAA,
+@inproceedings{GomezCanon2025WASPAA,
 	title        = {{The Test of Auditory-Vocal Affect (TAVA) dataset}},
 	author       = {Gómez-Cañón, Juan Sebastián and Noufi, Camille and Berger, Jonathan and Parker, Karen J. and Bowling, Daniel},
 	year         = 2025,
