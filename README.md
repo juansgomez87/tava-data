@@ -14,6 +14,9 @@ python3.11 -m venv .venv
 pip install -r requirements.txt
 ```
 
+### Data 
+All the audio files are under the `audio` directory: speech (`audio/recordings`), transformed EGG (`audio/tegg`), and original EGG (`audio/egg`).
+
 ### Usage
 The speech, EGG and tEGG audio files are in `audio` directory. The egemaps features are in the `feats` directory.
 The ratings are saved in the `annotations` directory, where `AllData.csv` contains each rating and `SummaryData.csv` contains the mean and standard deviation per stimuli. 
