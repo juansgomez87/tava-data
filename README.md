@@ -7,6 +7,8 @@ These ratings support fine-grained comparisons of affect perception across modal
 Building on prior work showing that tEGG signals can effectively isolate vocal affect, this dataset offers a unique resource for evaluating sensitivity to vocal affect in clinical populations with language or communication difficulties, as well as in studies aimed at dissociating linguistic and affective processing in individuals without these impairments.
 By contributing a phoneme-reduced, affect-rich signal representation to the SER community, we aim to enable more robust modelling of vocal affect and broaden the applicability of SER systems to diverse user populations. 
 
+[Link to paper]()
+
 ### Installation 
 This repository was created using Python 3.11.10. Install the required dependencies:
 ```
