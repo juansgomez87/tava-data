@@ -45,12 +45,12 @@ python stats.py
 	title        = {{The Test of Auditory-Vocal Affect (TAVA) dataset}},
 	author       = {Gómez-Cañón, Juan Sebastián and Noufi, Camille and Berger, Jonathan and Parker, Karen J. and Bowling, Daniel},
 	year         = 2025,
-	booktitle    = {IEEE Workshop on Applications of Signal Processing to Audio and Acoustics},
+	booktitle    = {IEEE Workshop on Applications of Signal Processing to Audio and Acoustics (WASPAA)},
 	month        = oct,
 	publisher    = {WASPAA},
-	pages        = {},
-	doi          = {},
-	url          = {},
+	pages        = {1--5},
+	doi          = {10.1109/WASPAA66052.2025.11230999},
+	url          = {https://ieeexplore.ieee.org/document/11230999},
 	address      = {Tahoe City, USA}
 }
 ```
